@@ -29,25 +29,17 @@ Function.prototype.inherits = function (superClass) {
   Asteroid.randomAsteroid = function (dimX, dimY) {
     var x = Math.floor(Math.random() * dimX);
     var y = Math.floor(Math.random() * dimY);
-    return new Asteroid([x,y], this.randomVec() )
+
+    if (x === 0 && y === 0) {
+      this.randomAsteroid(dimX, dimY);
+    } else {
+      return new Asteroid([x,y], this.randomVec() );
+    }
   }
 
-  Asteroid
-
-
+  //Asteroid
 }
 )(this);
-
-
-
-
-
-
-
-
-
-
-
 
 // var Game = MovingObjects.Game = function (posX, posY, numCircles) {
 //     this. = posX;
