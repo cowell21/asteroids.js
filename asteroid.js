@@ -23,6 +23,8 @@ Function.prototype.inherits = function (superClass) {
   Asteroid.randomVec = function () {
     var x = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
     var y = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
+    if (x === 0) { x += 1 };
+    if (y === 0) { y += 1 };
     return [x, y];
   }
 
@@ -30,14 +32,13 @@ Function.prototype.inherits = function (superClass) {
     var x = Math.floor(Math.random() * dimX);
     var y = Math.floor(Math.random() * dimY);
 
-    if (x === 0 && y === 0) {
-      this.randomAsteroid(dimX, dimY);
-    } else {
+    if (x <= (dimX * 0.4) || x >= (dimX * 0.6) && y <= (dimY * 0.4) || y >= (dimY * 0.6) ){
       return new Asteroid([x,y], this.randomVec() );
+    } else {
+      return this.randomAsteroid(dimX, dimY);
     }
   }
 
-  //Asteroid
 }
 )(this);
 

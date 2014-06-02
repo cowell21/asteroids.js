@@ -25,4 +25,8 @@ Function.prototype.inherits = function (superClass) {
     this.vel[1] += impulse[1];
   }
 
+  Ship.prototype.bullet = function() {
+    
+  }
+
 })(this);

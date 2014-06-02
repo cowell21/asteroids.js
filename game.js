@@ -25,7 +25,10 @@
   }
 
   Game.prototype.draw = function () {
-    this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ctx.fillStyle="#FFFFFF";
+    this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    //was clearRect
+
     this.ship.draw(this.ctx);
 
     for (var i = 0; i < this.asteroids.length; i++) {
@@ -49,10 +52,9 @@
   Game.prototype.checkCollision = function () {
     for (var i = 0; i < this.asteroids.length; i++){
       if (this.asteroids[i].isCollidedWith(this.ship)) {
-        alert('You Died');
+        //alert('You Died');
         this.asteroids = []
       }
-
     }
 
   }

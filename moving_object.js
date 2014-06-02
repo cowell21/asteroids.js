@@ -13,7 +13,6 @@
     this.pos[0] += this.vel[0];
     this.pos[1] += this.vel[1];
 
-
     if (this.pos[0] > 500 + (this.rad*2)) {
       this.pos[0] -= (500 + (this.rad*4));
     }
@@ -26,7 +25,6 @@
     if (this.pos[1] < 0 - (this.rad*2)) {
       this.pos[1] += (500 + (this.rad*4));
     }
-
   }
 
   MovingObject.prototype.draw = function (ctx) {
