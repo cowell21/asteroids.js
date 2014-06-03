@@ -37,6 +37,7 @@ Function.prototype.inherits = function (superClass) {
     } else {
       return this.randomAsteroid(dimX, dimY);
     }
+
   }
 
 }

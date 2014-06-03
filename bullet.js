@@ -9,21 +9,21 @@ Function.prototype.inherits = function (superClass) {
   var App = root.App = (root.App || {});
   var MovingObject = App.MovingObject;
 
-  var Ship = App.Ship = function (pos, vel){
-    color = Ship.COLOR;
-    rad = Ship.RADIUS;
+  var Bullet = App.Bullet = function (pos, vel){
+    var color = Bullet.COLOR;
+    var rad = Bullet.RADIUS;
+    //var vel = [0,1];
 
     MovingObject.call(this, pos, vel, color, rad);
   }
 
-  Ship.inherits(MovingObject);
-  Ship.RADIUS = 10;
-  Ship.COLOR = "red";
+  Bullet.inherits(MovingObject);
+  Bullet.RADIUS =2;
+  Bullet.COLOR = "orange";
 
-  Ship.prototype.power = function (impulse) {
-    this.vel[0] += impulse[0];
-    this.vel[1] += impulse[1];
+  Bullet.prototype.gen = function (shipPos) {
+    console.log("making bullet");
+    return new Bullet(shipPos,[0,-3]);
   }
-
 
 })(this);
