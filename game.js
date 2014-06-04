@@ -56,7 +56,8 @@
 
     for (var i = 0; i < bullets.length; i++) {
       if (bullets[i].pos === [-100,-100] ){
-        bullets[i] = undefined;
+        debugger;
+        bullets[i].fsddfsdfsf;
       } else {
         bullets[i].moveBullet();
       }

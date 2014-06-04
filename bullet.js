@@ -18,11 +18,10 @@ Function.prototype.inherits = function (superClass) {
   }
 
   Bullet.inherits(MovingObject);
-  Bullet.RADIUS =2;
+  Bullet.RADIUS = 2;
   Bullet.COLOR = "orange";
 
   Bullet.prototype.gen = function (shipPos) {
-    console.log("making bullet");
     return new Bullet(shipPos,[0,-3]);
   }
 
