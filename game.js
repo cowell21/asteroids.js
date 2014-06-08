@@ -33,7 +33,6 @@
     this.ctx.fillStyle="#FFFFFF";
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     //was clearRect
-
     this.ship.draw(this.ctx);
 
     for (var i = 0; i < this.asteroids.length; i++) {
