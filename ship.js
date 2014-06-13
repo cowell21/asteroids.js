@@ -25,5 +25,4 @@ Function.prototype.inherits = function (superClass) {
     this.vel[1] += impulse[1];
   }
 
-
 })(this);

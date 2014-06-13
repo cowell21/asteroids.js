@@ -13,7 +13,6 @@ Function.prototype.inherits = function (superClass) {
     var color = Bullet.COLOR;
     var rad = Bullet.RADIUS;
     //var vel = [0,1];
-
     MovingObject.call(this, pos, vel, color, rad);
   }
 
@@ -21,8 +20,9 @@ Function.prototype.inherits = function (superClass) {
   Bullet.RADIUS = 2;
   Bullet.COLOR = "orange";
 
-  Bullet.prototype.gen = function (shipPos) {
-    return new Bullet(shipPos,[0,-3]);
+  Bullet.gen = function (shipPos, vel) {
+    //return new Bullet(shipPos,[0,-3]);
+    return new Bullet(shipPos, vel);
   }
 
 })(this);

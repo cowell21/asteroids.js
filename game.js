@@ -3,15 +3,16 @@
   var Asteroid = App.Asteroid
   var Ship = App.Ship
   var Bullet = App.Bullet
-  var bullets = [];
+  var inTheHole = 0;
   var Game = App.Game = function (ctx) {
-
       this.ctx = ctx;
       this.asteroids = this.addAsteroids(3);
       this.ship = new App.Ship([(Game.DIM_X / 2), (Game.DIM_Y / 2)], [0,0]);
-      this.bullet = new App.Bullet([200,200],[0,0]);
-      this.bindKeyHandler();
 
+      this.bullets = this.addBullets(50);
+      //this.bullet = new App.Bullet([200,200],[0,0]);
+
+      this.bindKeyHandler();
   }
 
   Game.DIM_X = 500;
@@ -20,13 +21,18 @@
 
   Game.prototype.addAsteroids = function (numAsteroids) {
     var asteroids = [];
-
-
     for (var i = 0; i < numAsteroids; i++) {
       asteroids.push(Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
     }
-
     return asteroids;
+  }
+
+  Game.prototype.addBullets = function (numBullets) {
+    var bullets = [];
+    for (var i = 0; i < numBullets; i++) {
+      bullets.push(App.Bullet.gen([-100, -100],[0, 0]));
+    }
+    return bullets;
   }
 
   Game.prototype.draw = function () {
@@ -40,10 +46,8 @@
       this.asteroids[i].draw(this.ctx);
     }
 
-    if (bullets.length != 0) {
-      for (var i = 0; i < bullets.length; i++) {
-        bullets[i].draw(this.ctx);
-      }
+    for (var i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].draw(this.ctx);
     }
 
   }
@@ -54,12 +58,9 @@
       this.asteroids[i].move();
     }
 
-    for (var i = 0; i < bullets.length; i++) {
-      if (bullets[i].pos === [-100,-100] ){
-        debugger;
-        bullets[i].fsddfsdfsf;
-      } else {
-        bullets[i].moveBullet();
+    for (var i = 0; i < 50; i++) {
+      if (this.bullets[i].pos[0] != -100 ) {
+        this.bullets[i].moveBullet();
       }
     }
 
@@ -77,6 +78,13 @@
         //alert('You Died');
         //this.asteroids = [];
       }
+      //debugger;
+       // for (var i = 0; i < bullets.length; i++) {
+        // if (this.asteroids[i].isCollidedWith(bullets[0])) {
+        //  alert('hit');
+        // }
+       // }
+
     }
 
   }
@@ -91,7 +99,7 @@
 
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
-    var bullet = this.bullet;
+    var bullets = this.bullets;
     key('a', function(){ship.power([-1,0])});
     key('d', function(){ship.power([1,0])});
     key('w', function(){ship.power([0,-1])});
@@ -99,7 +107,17 @@
     key('e', function(){
       var posX = ship.pos[0];
       var posY = ship.pos[1];
-      bullets.push( bullet.gen([posX,posY]) )
+
+      bullets[inTheHole].pos = [posX, posY];
+      bullets[inTheHole].vel = [-1, -1];
+
+      // preps the next bullet in the ship's cannon
+      if ( inTheHole === 49 ) {
+        inTheHole = 0;
+      } else {
+        inTheHole += 1;
+      }
+
     });
   }
 
