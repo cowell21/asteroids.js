@@ -74,12 +74,13 @@
         //alert('You Died');
         //this.asteroids = [];
       }
-      //debugger;
-       // for (var i = 0; i < bullets.length; i++) {
-        // if (this.asteroids[i].isCollidedWith(bullets[0])) {
-        //  alert('hit');
-        // }
-       // }
+
+      for (var j = 0; j < 30; j++) {
+        if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
+          //debugger;
+          this.asteroids[i].rad = 0
+        }
+      }
     }
   }
 
@@ -101,10 +102,11 @@
     key('e', function(){
 
       bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
-      bullets[inTheHole].vel = [4 * Math.sin(rot), -4 * Math.cos(rot)];
+      bullets[inTheHole].vel = [4 * Math.sin(rot) + ship.vel[0],
+       -4 * Math.cos(rot) + ship.vel[1]];
 
       // preps the next bullet in the ship's cannon
-      if ( inTheHole === 49 ) {
+      if ( inTheHole === 29 ) {
         inTheHole = 0;
       } else {
         inTheHole += 1;
