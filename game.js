@@ -37,7 +37,7 @@
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     //was clearRect
 
-    this.ship.draw(this.ctx);
+    this.ship.drawShip(this.ctx);
 
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
@@ -46,7 +46,6 @@
     for (var i = 0; i < this.bullets.length; i++) {
       this.bullets[i].draw(this.ctx);
     }
-
   }
 
   Game.prototype.move = function () {
@@ -95,16 +94,14 @@
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
     var bullets = this.bullets;
-    key('a', function(){ ship.rotate(Math.PI * 0.1) });
-    key('d', function(){ ship.rotate(Math.PI * -0.1) });
+    key('a', function(){ ship.rotate(Math.PI * -0.1) });
+    key('d', function(){ ship.rotate(Math.PI * 0.1) });
     key('w', function(){ ship.power() });
     //key('s', function(){  });
     key('e', function(){
-      var posX = ship.pos[0];
-      var posY = ship.pos[1];
 
-      bullets[inTheHole].pos = [posX, posY];
-      bullets[inTheHole].vel = [-1, -1];
+      bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
+      bullets[inTheHole].vel = [4 * Math.sin(rot), -4 * Math.cos(rot)];
 
       // preps the next bullet in the ship's cannon
       if ( inTheHole === 49 ) {

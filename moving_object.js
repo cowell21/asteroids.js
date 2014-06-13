@@ -2,11 +2,12 @@
 
   var App = root.App = (root.App || {});
 
-  var MovingObject = App.MovingObject = function (pos, vel, color, rad) {
+  var MovingObject = App.MovingObject = function (pos, vel, color, rad, rot) {
     this.color = color;
     this.rad = rad;
     this.vel = vel;
     this.pos = pos;
+    this.rot = rot;
   };
 
   MovingObject.prototype.move = function () {
@@ -55,6 +56,22 @@
       this.rad,
       0,
       2 * Math.PI,
+      false
+    );
+
+    ctx.fill();
+  }
+
+  MovingObject.prototype.drawShip = function (ctx) {
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    //debugger;
+    ctx.arc(
+      this.pos[0],
+      this.pos[1],
+      this.rad,
+      (0.75) * Math.PI + rot,
+      (2.25) * Math.PI + rot,
       false
     );
 

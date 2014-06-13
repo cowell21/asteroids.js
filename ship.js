@@ -12,22 +12,27 @@ Function.prototype.inherits = function (superClass) {
   var Ship = App.Ship = function (pos, vel){
     color = Ship.COLOR;
     rad = Ship.RADIUS;
-
-    MovingObject.call(this, pos, vel, color, rad);
+    rot = Ship.ROTATION;
+    MovingObject.call(this, pos, vel, color, rad, rot);
   }
 
   Ship.inherits(MovingObject);
   Ship.RADIUS = 10;
   Ship.COLOR = "red";
-  Ship.rotation = Math.PI * 1;
+  Ship.ROTATION = Math.PI; //standard rotation
 
   Ship.prototype.power = function () {
-    this.vel[0] += Math.sin(Ship.rotation);
-    this.vel[1] += Math.cos(Ship.rotation);
+    this.vel[0] += Math.sin(rot);
+    this.vel[1] -= Math.cos(rot);
   }
 
   Ship.prototype.rotate = function (direction) {
-    Ship.rotation += direction;
+    rot += direction;
+    //Ship.rotation += direction;
+  }
+
+  Ship.getRotation = function () {
+    return this.rotation;
   }
 
 })(this);
