@@ -8,10 +8,7 @@
       this.ctx = ctx;
       this.asteroids = this.addAsteroids(3);
       this.ship = new App.Ship([(Game.DIM_X / 2), (Game.DIM_Y / 2)], [0,0]);
-
       this.bullets = this.addBullets(50);
-      //this.bullet = new App.Bullet([200,200],[0,0]);
-
       this.bindKeyHandler();
   }
 
@@ -84,9 +81,7 @@
         //  alert('hit');
         // }
        // }
-
     }
-
   }
 
   Game.prototype.start = function () {
@@ -100,10 +95,10 @@
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
     var bullets = this.bullets;
-    key('a', function(){ship.power([-1,0])});
-    key('d', function(){ship.power([1,0])});
-    key('w', function(){ship.power([0,-1])});
-    key('s', function(){ship.power([0,1])});
+    key('a', function(){ ship.rotate(Math.PI * 0.1) });
+    key('d', function(){ ship.rotate(Math.PI * -0.1) });
+    key('w', function(){ ship.power() });
+    //key('s', function(){  });
     key('e', function(){
       var posX = ship.pos[0];
       var posY = ship.pos[1];
