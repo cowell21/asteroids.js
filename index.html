@@ -6,6 +6,7 @@
   <script src="game.js"></script>
   <script src="ship.js"></script>
   <script src="bullet.js"></script>
+  <script src="star.js"></script>
   <script src="keymaster.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
   </script>
@@ -18,14 +19,11 @@
   <br>
   <canvas width="500" height="500"></canvas>
 
-  <audio src="media/bgmusic32.mp3" autoplay controls loop class="bgmusic" >
+  <audio src="media/bgmusic32.mp3" autoplay muted controls loop class="bgmusic" >
   </audio>
-  <audio autoplay class="makenoise">
-  </audio>
-  <audio autoplay class="boomnoise">
-  </audio>
-  <audio autoplay class="gameovernoise">
-  </audio>
+  <audio autoplay class="makenoise"></audio>
+  <audio autoplay class="boomnoise"></audio>
+  <audio autoplay class="gameovernoise"></audio>
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];

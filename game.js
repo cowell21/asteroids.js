@@ -1,14 +1,12 @@
 (function (root) {
   var App = root.App = (root.App || {});
-  var Asteroid = App.Asteroid;
-  var Ship = App.Ship;
-  var Bullet = App.Bullet;
-  var Star = App.Star;
+
   var inTheHole = 0;
   var gameover = false;
+
   var Game = App.Game = function (ctx) {
       this.ctx = ctx;
-      //this.stars = this.addStars(30);
+      this.stars = this.addStars(30);
       this.asteroids = this.addAsteroids(3);
       this.ship = new App.Ship([(Game.DIM_X / 2), (Game.DIM_Y / 2)], [0,0]);
       this.bullets = this.addBullets(50);
@@ -22,15 +20,15 @@
   Game.prototype.addAsteroids = function (numAsteroids) {
     var asteroids = [];
     for (var i = 0; i < numAsteroids; i++) {
-      asteroids.push(Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
+      asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
     }
     return asteroids;
   }
 
   Game.prototype.addStars = function (numStars) {
     var stars = [];
-    for (var i = 0; i < numAsteroids; i++) {
-      stars.push(Star.randomStar(Game.DIM_X, Game.DIM_Y));
+    for (var i = 0; i < numStars; i++) {
+      stars.push(App.Star.randomStar(Game.DIM_X, Game.DIM_Y));
     }
     return stars;
   }
@@ -49,9 +47,9 @@
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     //was clearRect
 
-    // for (var i = 0; i < this.stars.length; i++) {
-    //   this.stars[i].draw(this.ctx);
-    // }
+    for (var i = 0; i < this.stars.length; i++) {
+      this.stars[i].draw(this.ctx);
+    }
 
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
@@ -66,6 +64,11 @@
 
   Game.prototype.move = function () {
     this.ship.move();
+
+    for (var i = 0; i < this.stars.length; i++) {
+      this.stars[i].move();
+    }
+
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].move();
     }
