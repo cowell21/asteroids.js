@@ -17,17 +17,17 @@
   <h2>Asteroids</h2>
   Boost: W,  Rotate Counter-Clockwise: A,  Rotate Clockwise: D,  Fire: E
   <br>
-  <canvas width="500" height="500"></canvas>
+  <canvas class="gamecanvas" width="700" height="700"></canvas>
 
-  <audio src="media/bgmusic32.mp3" autoplay muted controls loop class="bgmusic" >
-  </audio>
-  <audio autoplay class="makenoise"></audio>
+  <audio src="media/bgmusic32.mp3" autoplay muted controls loop class="bgmusic" ></audio>
+  <audio autoplay class="boostnoise"></audio>
+  <audio autoplay class="shootnoise"></audio>
   <audio autoplay class="boomnoise"></audio>
   <audio autoplay class="gameovernoise"></audio>
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];
-    var game = new App.Game(canvas.getContext("2d"));
+    var game = new App.Game(canvas.getContext("2d"), this);
     game.start();
   </script>
 

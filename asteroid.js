@@ -20,6 +20,7 @@ Function.prototype.inherits = function (superClass) {
   Asteroid.COLOR = "lightgrey";
   Asteroid.RADIUS = 20;
   Asteroid.SPEED = 10;
+
   Asteroid.randomVec = function () {
     var x = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
     var y = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);

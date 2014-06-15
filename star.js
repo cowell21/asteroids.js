@@ -19,7 +19,7 @@ Function.prototype.inherits = function (superClass) {
   Star.randomStar = function (dimX, dimY) {
     var x = Math.floor(Math.random() * dimX);
     var y = Math.floor(Math.random() * dimY);
-    return new Star([x,y], [(Math.random() * 2 + 1),0]);
+    return new Star([x,y], [(Math.random() * 3 + 0.5),0]);
   };
 
 }
