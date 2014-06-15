@@ -3,6 +3,7 @@
 
   var inTheHole = 0;
   var gameover = false;
+  var score = 0;
 
   var Game = App.Game = function (ctx, canSize) {
       this.ctx = ctx;
@@ -43,23 +44,32 @@
 
   Game.prototype.draw = function () {
     this.ctx.fillStyle="black";
-
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
-    //was clearRect
+
+    this.ctx.font = "30px Arial";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("Points: " + score, 10 ,50);
 
     for (var i = 0; i < this.stars.length; i++) {
       this.stars[i].draw(this.ctx);
     }
 
-    for (var i = 0; i < this.asteroids.length; i++) {
-      this.asteroids[i].draw(this.ctx);
+    if (gameover === false) {
+      for (var i = 0; i < this.asteroids.length; i++) {
+        this.asteroids[i].draw(this.ctx);
+      }
+
+      for (var i = 0; i < this.bullets.length; i++) {
+        this.bullets[i].draw(this.ctx);
+      }
+
+      this.ship.drawShip(this.ctx);
+    } else {
+      this.ctx.font = "32px Arial";
+      this.ctx.fillStyle = "white";
+      this.ctx.fillText("Game Over", 250 ,300);
     }
 
-    for (var i = 0; i < this.bullets.length; i++) {
-      this.bullets[i].draw(this.ctx);
-    }
-
-    this.ship.drawShip(this.ctx);
   };
 
   Game.prototype.move = function () {
@@ -86,7 +96,9 @@
   Game.prototype.step = function () {
     this.move();
     this.draw();
-    this.checkCollision();
+    if (gameover === false) {
+      this.checkCollision();
+    }
   };
 
   Game.prototype.checkCollision = function () {
@@ -100,7 +112,7 @@
 
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
-          //this.asteroids[i].rad = 1;
+          score += 10;
           this.asteroids[i].pos = [-100, 100];
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
@@ -117,9 +129,11 @@
       if (gameover != true) {
         game.step();
       } else {
+        game.step();
+
         if ($('.bgmusic')[0].volume != 1) {
           var temp = $('.bgmusic')[0].volume * 1000;
-          $('.bgmusic')[0].volume = (50 + temp) / 1000;
+          $('.bgmusic')[0].volume = (5 + temp) / 1000;
         };
       }
     }, 30);
