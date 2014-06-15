@@ -9,7 +9,7 @@
   var Game = App.Game = function (ctx, canSize) {
       this.ctx = ctx;
       this.stars = this.addStars(30);
-      this.asteroids = this.addAsteroids(3);
+      this.asteroids = this.addAsteroids(10);
       this.ship = new App.Ship([(Game.DIM_X / 2), (Game.DIM_Y / 2)], [0,0]);
       this.bullets = this.addBullets(50);
       this.bindKeyHandler();
@@ -97,13 +97,14 @@
   };
 
   Game.prototype.move = function () {
-    this.ship.move();
 
     for (var i = 0; i < this.stars.length; i++) {
       this.stars[i].move();
     }
 
-    if (gameover === false) {
+    if (startSeq === false) {
+      this.ship.move();
+
       for (var i = 0; i < this.asteroids.length; i++) {
         if (this.asteroids[i].pos[0] != -100 ) {
           this.asteroids[i].move();
@@ -128,7 +129,7 @@
       this.draw();
     }
 
-    if (gameover === false) {
+    if (gameover != true) {
       this.checkCollision();
     }
   };
