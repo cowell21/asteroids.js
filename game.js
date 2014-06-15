@@ -70,7 +70,9 @@
     }
 
     for (var i = 0; i < this.asteroids.length; i++) {
-      this.asteroids[i].move();
+      if (this.asteroids[i].pos[0] != -100 ) {
+        this.asteroids[i].move();
+      }
     }
 
     for (var i = 0; i < 50; i++) {
@@ -98,7 +100,8 @@
 
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
-          this.asteroids[i].rad = 1;
+          //this.asteroids[i].rad = 1;
+          this.asteroids[i].pos = [-100, 100];
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
       }

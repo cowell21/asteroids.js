@@ -75,7 +75,6 @@
   }
 
   MovingObject.prototype.isCollidedWith = function (OtherObject) {
-
     var x_length = this.pos[0] - OtherObject.pos[0];
     var y_length = this.pos[1] - OtherObject.pos[1];
     var distance = Math.sqrt(Math.pow(x_length,2) + Math.pow(y_length,2))
