@@ -7,6 +7,8 @@
   <script src="ship.js"></script>
   <script src="bullet.js"></script>
   <script src="keymaster.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+  </script>
   <!-- "soundjs.min.js" -->
 </head>
 
@@ -14,13 +16,19 @@
   <h2>Asteroids</h2>
   Boost: W,  Rotate Counter-Clockwise: A,  Rotate Clockwise: D,  Fire: E
   <br>
-
-
   <canvas width="500" height="500"></canvas>
+
+  <audio src="media/bgmusic32.mp3" autoplay loop class="bgmusic" >
+  </audio>
+  <audio autoplay class="makenoise">
+  </audio>
+  <audio autoplay class="boomnoise">
+  </audio>
+  <audio autoplay class="gameovernoise">
+  </audio>
 
   <script>
     var canvas = document.getElementsByTagName("canvas")[0];
-    // var object1 = new MovingObjects.MovingObject([10,10], [1,1], "black", 50);
     var game = new App.Game(canvas.getContext("2d"));
     game.start();
   </script>

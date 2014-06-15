@@ -1,9 +1,10 @@
 (function (root) {
   var App = root.App = (root.App || {});
-  var Asteroid = App.Asteroid
-  var Ship = App.Ship
-  var Bullet = App.Bullet
+  var Asteroid = App.Asteroid;
+  var Ship = App.Ship;
+  var Bullet = App.Bullet;
   var inTheHole = 0;
+  var gameover = false;
   var Game = App.Game = function (ctx) {
       this.ctx = ctx;
       this.asteroids = this.addAsteroids(3);
@@ -33,11 +34,10 @@
   }
 
   Game.prototype.draw = function () {
-    this.ctx.fillStyle="#FFFFFF";
+    this.ctx.fillStyle="black";
+
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
     //was clearRect
-
-    this.ship.drawShip(this.ctx);
 
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
@@ -46,6 +46,8 @@
     for (var i = 0; i < this.bullets.length; i++) {
       this.bullets[i].draw(this.ctx);
     }
+
+    this.ship.drawShip(this.ctx);
   }
 
   Game.prototype.move = function () {
@@ -69,18 +71,21 @@
   }
 
   Game.prototype.checkCollision = function () {
+
     for (var i = 0; i < this.asteroids.length; i++){
       if (this.asteroids[i].isCollidedWith(this.ship)) {
-        //alert('You Died');
-        //this.asteroids = [];
+        $('.bgmusic')[0].volume = 0.20;
+        $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
+        gameover = true;
       }
 
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
-          //debugger;
           this.asteroids[i].rad = 0
+          $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
       }
+
     }
   }
 
@@ -88,19 +93,27 @@
     game = this;
 
     window.setInterval(function () {
-          game.step();
-        }, 30);
+      if (gameover != true) {
+        game.step();
+      } else {
+        if ($('.bgmusic')[0].volume != 1) {
+          $('.bgmusic')[0].volume += 0.005;
+        };
+      }
+    }, 30);
   }
 
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
     var bullets = this.bullets;
-    key('a', function(){ ship.rotate(Math.PI * -0.1) });
-    key('d', function(){ ship.rotate(Math.PI * 0.1) });
-    key('w', function(){ ship.power() });
-    //key('s', function(){  });
-    key('e', function(){
-
+    key('left', function(){ ship.rotate(Math.PI * -0.1) });
+    key('right', function(){ ship.rotate(Math.PI * 0.1) });
+    key('up', function(){
+      ship.power();
+      $('.makenoise').html("<source src='media/boost.mp3' type='audio/mpeg' >" );
+     });
+    key('space', function(){
+      $('.makenoise').html("<source src='media/shot.mp3' type='audio/mpeg' >" );
       bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
       bullets[inTheHole].vel = [4 * Math.sin(rot) + ship.vel[0],
        -4 * Math.cos(rot) + ship.vel[1]];

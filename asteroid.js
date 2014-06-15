@@ -17,7 +17,7 @@ Function.prototype.inherits = function (superClass) {
 
   Asteroid.inherits(MovingObject);
 
-  Asteroid.COLOR = "black";
+  Asteroid.COLOR = "lightgrey";
   Asteroid.RADIUS = 20;
   Asteroid.SPEED = 10
   Asteroid.randomVec = function () {
