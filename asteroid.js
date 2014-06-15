@@ -1,5 +1,5 @@
 Function.prototype.inherits = function (superClass) {
-  function Surrogate () {};
+  function Surrogate () {}
   Surrogate.prototype = superClass.prototype;
   this.prototype = new Surrogate();
 };
@@ -10,16 +10,16 @@ Function.prototype.inherits = function (superClass) {
   var MovingObject = App.MovingObject;
 
   var Asteroid = App.Asteroid = function (pos, vel){
-    color = Asteroid.COLOR;
-    rad = Asteroid.RADIUS;
+    var color = Asteroid.COLOR;
+    var rad = Asteroid.RADIUS;
     MovingObject.call(this, pos, vel, color, rad);
-  }
+  };
 
   Asteroid.inherits(MovingObject);
 
   Asteroid.COLOR = "lightgrey";
   Asteroid.RADIUS = 20;
-  Asteroid.SPEED = 10
+  Asteroid.SPEED = 10;
   Asteroid.randomVec = function () {
     var x = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
     var y = Math.floor(Math.random() * Asteroid.SPEED) - (Asteroid.SPEED/2);
@@ -42,13 +42,3 @@ Function.prototype.inherits = function (superClass) {
 
 }
 )(this);
-
-// var Game = MovingObjects.Game = function (posX, posY, numCircles) {
-//     this. = posX;
-//     this.yDim = yDim;
-//
-//     this.circles = []
-//     for (var i = 0; i < numCircles; ++i) {
-//       this.circles.push(Circle.randomCircle(xDim, yDim));
-//     }
-//   }
