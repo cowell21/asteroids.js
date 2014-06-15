@@ -1,6 +1,25 @@
 <html>
 <head>
+  <style>
+  body { background-color:grey;}
+  @font-face
+  {
+    font-family: bitfont;
+    src: url(PressStart2P.ttf);
+  }
+  div
+  {
+    text-shadow:2px 2px red;
+    font-family:bitfont;
+    color:white;
+    text-align: center
+  }
+  canvas { border:3px solid #FFF; }
+  p { font-size:75%; }
+  </style>
+
   <title>Asteroids</title>
+
   <script src="moving_object.js"></script>
   <script src="asteroid.js"></script>
   <script src="game.js"></script>
@@ -10,14 +29,14 @@
   <script src="keymaster.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
   </script>
-  <!-- "soundjs.min.js" -->
 </head>
 
-<body bgcolor="grey">
-  <h2>Asteroids</h2>
-  Boost: up,  Rotate Counter-Clockwise: left,  Rotate Clockwise: right,  Fire: spacebar
-  <br>
-  <canvas class="gamecanvas" style="margin: 0 auto" width="700" height="700"></canvas>
+<body>
+  <div>
+    <h2>Asteroids</h2>
+    <p>by Chris Cowell</p>
+    <canvas width="1000" height="600"></canvas>
+  </div>
 
   <audio src="media/bgmusic32.mp3" autoplay muted controls loop class="bgmusic" ></audio>
   <audio autoplay class="boostnoise"></audio>

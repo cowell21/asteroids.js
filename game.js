@@ -3,6 +3,7 @@
 
   var inTheHole = 0;
   var gameover = false;
+  var startSeq = true;
   var score = 0;
 
   var Game = App.Game = function (ctx, canSize) {
@@ -14,8 +15,8 @@
       this.bindKeyHandler();
   };
 
-  Game.DIM_X = 700;
-  Game.DIM_Y = 700;
+  Game.DIM_X = 1000;
+  Game.DIM_Y = 600;
   Game.FPS = 30;
 
   Game.prototype.addAsteroids = function (numAsteroids) {
@@ -46,7 +47,7 @@
     this.ctx.fillStyle="black";
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-    this.ctx.font = "30px Arial";
+    this.ctx.font = "20px bitfont";
     this.ctx.fillStyle = "white";
     this.ctx.fillText("Points: " + score, 10 ,50);
 
@@ -65,9 +66,32 @@
 
       this.ship.drawShip(this.ctx);
     } else {
-      this.ctx.font = "32px Arial";
+      this.ctx.font = "32px bitfont";
       this.ctx.fillStyle = "white";
-      this.ctx.fillText("Game Over", 250 ,300);
+      this.ctx.fillText("Game Over", 350 ,300);
+    }
+
+  };
+
+  Game.prototype.startDraw = function () {
+    this.ctx.fillStyle="black";
+    this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
+    this.ctx.font = "20px bitfont";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("Instructions:", 350 ,200);
+    this.ctx.font = "14px bitfont";
+    this.ctx.fillText("Boost: UP", 350 ,250);
+    this.ctx.fillText("Rotate Counter-Clockwise: LEFT", 350 ,280);
+    this.ctx.fillText("Rotate Clockwise: RIGHT", 350 ,310);
+    this.ctx.fillText("Fire: Spacebar", 350 ,340);
+
+    this.ctx.font = "32px bitfont";
+    this.ctx.fillStyle = "red";
+    this.ctx.fillText("Press Enter To Begin", 200, 450);
+
+    for (var i = 0; i < this.stars.length; i++) {
+      this.stars[i].draw(this.ctx);
     }
 
   };
@@ -79,15 +103,17 @@
       this.stars[i].move();
     }
 
-    for (var i = 0; i < this.asteroids.length; i++) {
-      if (this.asteroids[i].pos[0] != -100 ) {
-        this.asteroids[i].move();
+    if (gameover === false) {
+      for (var i = 0; i < this.asteroids.length; i++) {
+        if (this.asteroids[i].pos[0] != -100 ) {
+          this.asteroids[i].move();
+        }
       }
-    }
 
-    for (var i = 0; i < 50; i++) {
-      if (this.bullets[i].pos[0] != -100 ) {
-        this.bullets[i].moveBullet();
+      for (var i = 0; i < 50; i++) {
+        if (this.bullets[i].pos[0] != -100 ) {
+          this.bullets[i].moveBullet();
+        }
       }
     }
 
@@ -95,7 +121,13 @@
 
   Game.prototype.step = function () {
     this.move();
-    this.draw();
+
+    if (startSeq) {
+      this.startDraw();
+    } else {
+      this.draw();
+    }
+
     if (gameover === false) {
       this.checkCollision();
     }
@@ -105,7 +137,7 @@
 
     for (var i = 0; i < this.asteroids.length; i++){
       if (this.asteroids[i].isCollidedWith(this.ship)) {
-        $('.bgmusic')[0].volume = 0.20;
+        $('.bgmusic')[0].volume = 0.25;
         $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
         gameover = true;
       }
@@ -114,6 +146,7 @@
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
           score += 10;
           this.asteroids[i].pos = [-100, 100];
+
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
       }
@@ -126,22 +159,23 @@
 
 
     window.setInterval(function () {
-      if (gameover != true) {
-        game.step();
-      } else {
-        game.step();
+      game.step();
 
-        if ($('.bgmusic')[0].volume != 1) {
-          var temp = $('.bgmusic')[0].volume * 1000;
-          $('.bgmusic')[0].volume = (5 + temp) / 1000;
-        };
-      }
+      // if ($('.bgmusic')[0].volume != 1) {
+      //   var temp = $('.bgmusic')[0].volume * 1000;
+      //   $('.bgmusic')[0].volume = (5 + temp) / 1000;
+      // };
+
     }, 30);
   };
 
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
     var bullets = this.bullets;
+
+    startSeq = true;
+
+    key('enter', function(){ startSeq = false; });
     key('left', function(){ ship.rotate(Math.PI * -0.1) });
     key('right', function(){ ship.rotate(Math.PI * 0.1) });
     key('up', function(){
