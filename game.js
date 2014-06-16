@@ -9,7 +9,6 @@
   var Game = App.Game = function (ctx, canSize) {
       this.ctx = ctx;
       this.stars = this.addStars(30);
-      this.asteroids = this.addAsteroids(10);
       this.ship = new App.Ship([(Game.DIM_X / 2), (Game.DIM_Y / 2)], [0,0]);
       this.bullets = this.addBullets(50);
       this.bindKeyHandler();
@@ -57,7 +56,7 @@
 
     if (gameover === false) {
       for (var i = 0; i < this.asteroids.length; i++) {
-        this.asteroids[i].draw(this.ctx);
+        this.asteroids[i].drawAsteroid(this.ctx);
       }
 
       for (var i = 0; i < this.bullets.length; i++) {
@@ -69,6 +68,10 @@
       this.ctx.font = "32px bitfont";
       this.ctx.fillStyle = "white";
       this.ctx.fillText("Game Over", 350 ,300);
+
+      this.ctx.font = "32px bitfont";
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText("Press Enter Play Again", 180, 450);
     }
 
   };
@@ -139,15 +142,17 @@
     for (var i = 0; i < this.asteroids.length; i++){
       if (this.asteroids[i].isCollidedWith(this.ship)) {
         $('.bgmusic')[0].volume = 0.25;
+        $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
         gameover = true;
+        this.asteroids = [];
       }
 
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
           score += 10;
-          this.asteroids[i].pos = [-100, 100];
-
+          this.asteroids[i].pos = App.Asteroid.randomPos(Game.DIM_X, Game.DIM_Y);
+          this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
       }
@@ -173,10 +178,19 @@
   Game.prototype.bindKeyHandler = function () {
     var ship = this.ship;
     var bullets = this.bullets;
+    var that = this;
 
     startSeq = true;
 
-    key('enter', function(){ startSeq = false; });
+    key('enter', function(){
+      startSeq = false;
+      gameover = false;
+      score = 0;
+      that.asteroids = that.addAsteroids(5);
+      ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
+      ship.vel = [0,0];
+      $('.bgmusic')[0].volume = 1;
+     });
     key('left', function(){ ship.rotate(Math.PI * -0.1) });
     key('right', function(){ ship.rotate(Math.PI * 0.1) });
     key('up', function(){

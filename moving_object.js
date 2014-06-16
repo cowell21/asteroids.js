@@ -58,6 +58,14 @@
     ctx.fill();
   }
 
+  MovingObject.prototype.drawAsteroid = function (ctx) {
+    var img = document.getElementById("home");
+    var x = this.pos[0] - this.rad;
+    var y = this.pos[1] - this.rad;
+
+    ctx.drawImage(img,Math.floor(this.rot % 360), Math.floor(this.rot / 360),72,72,x,y,40,40);
+  }
+
   MovingObject.prototype.drawShip = function (ctx) {
     ctx.fillStyle = this.color;
     ctx.beginPath();

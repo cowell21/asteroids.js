@@ -12,7 +12,8 @@ Function.prototype.inherits = function (superClass) {
   var Asteroid = App.Asteroid = function (pos, vel){
     var color = Asteroid.COLOR;
     var rad = Asteroid.RADIUS;
-    MovingObject.call(this, pos, vel, color, rad);
+    var rot = 72 * Math.floor(Math.random() * 18);
+    MovingObject.call(this, pos, vel, color, rad, rot);
   };
 
   Asteroid.inherits(MovingObject);
@@ -29,16 +30,23 @@ Function.prototype.inherits = function (superClass) {
     return [x, y];
   }
 
-  Asteroid.randomAsteroid = function (dimX, dimY) {
-    var x = Math.floor(Math.random() * dimX);
-    var y = Math.floor(Math.random() * dimY);
+  Asteroid.randomPos = function (dimX, dimY) {
+    var x = 0;
+    var y = 0;
 
-    if (x <= (dimX * 0.4) || x >= (dimX * 0.6) && y <= (dimY * 0.4) || y >= (dimY * 0.6) ){
-      return new Asteroid([x,y], this.randomVec() );
+    if (Math.random() < 0.5) {
+      x = Math.floor(Math.random() * dimX);
+      Math.random() < 0.5 ? y = 0 : y = dimY ;
     } else {
-      return this.randomAsteroid(dimX, dimY);
+      y = Math.floor(Math.random() * dimY);
+      Math.random() < 0.5 ? x = 0 : x = dimX ;
     }
 
+    return [x, y];
+  }
+
+  Asteroid.randomAsteroid = function (dimX, dimY) {
+    return new Asteroid(this.randomPos(dimX, dimY), this.randomVec() );
   }
 
 }
