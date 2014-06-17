@@ -151,6 +151,7 @@
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
           score += 10;
+          this.bullets[j].pos = [-100,-100]
           this.asteroids[i].pos = App.Asteroid.randomPos(Game.DIM_X, Game.DIM_Y);
           this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
