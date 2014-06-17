@@ -163,15 +163,8 @@
   Game.prototype.start = function () {
     game = this;
 
-
     window.setInterval(function () {
       game.step();
-
-      // if ($('.bgmusic')[0].volume != 1) {
-      //   var temp = $('.bgmusic')[0].volume * 1000;
-      //   $('.bgmusic')[0].volume = (5 + temp) / 1000;
-      // };
-
     }, 30);
   };
 
