@@ -132,7 +132,7 @@
       this.draw();
     }
 
-    if (gameover != true) {
+    if (gameover != true && startSeq != true) {
       this.checkCollision();
     }
   };
