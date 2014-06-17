@@ -12,7 +12,6 @@ Function.prototype.inherits = function (superClass) {
   var Bullet = App.Bullet = function (pos, vel){
     var color = Bullet.COLOR;
     var rad = Bullet.RADIUS;
-    //var vel = [0,1];
     MovingObject.call(this, pos, vel, color, rad);
   }
 
