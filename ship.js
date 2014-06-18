@@ -28,11 +28,6 @@ Function.prototype.inherits = function (superClass) {
 
   Ship.prototype.rotate = function (direction) {
     rot += direction;
-    //Ship.rotation += direction;
-  }
-
-  Ship.getRotation = function () {
-    return this.rotation;
   }
 
 })(this);
