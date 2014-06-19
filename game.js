@@ -14,6 +14,7 @@
       this.bindKeyHandler();
   };
 
+  Game.SORRY = false;
   Game.DIM_X = 1000;
   Game.DIM_Y = 600;
   Game.FPS = 30;
@@ -189,6 +190,7 @@
     key('left', function(){ ship.rotate(Math.PI * -0.1) });
     key('right', function(){ ship.rotate(Math.PI * 0.1) });
     key('up', function(){
+      Game.SORRY = true;
       ship.power();
       $('.boostnoise').html("<source src='media/boost.mp3' type='audio/mpeg' >" );
      });

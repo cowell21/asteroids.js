@@ -80,12 +80,19 @@
     // );
     //
     // ctx.fill();
+
     var img = document.getElementById("ship");
+    var boost = document.getElementById("boost");
 
     ctx.save();
     ctx.translate(this.pos[0], this.pos[1]);
     ctx.rotate(rot);
     ctx.drawImage(img, -40, -40, 80, 80);
+    if (App.Game.SORRY === true) {
+      ctx.drawImage(boost, -40, -45, 80, 80);
+      App.Game.SORRY = false;
+    }
+
     ctx.restore();
   }
 
