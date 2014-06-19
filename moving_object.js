@@ -7,7 +7,7 @@
     this.rad = rad;
     this.vel = vel;
     this.pos = pos;
-    this.rot = rot;
+    this.rot = rot; // also a misc var
   };
 
   MovingObject.prototype.move = function () {
@@ -60,10 +60,20 @@
 
   MovingObject.prototype.drawAsteroid = function (ctx) {
     var img = document.getElementById("home");
+    var explosion = document.getElementById("explosion");
     var x = this.pos[0] - this.rad;
     var y = this.pos[1] - this.rad;
 
-    ctx.drawImage(img,Math.floor(this.rot % 360), Math.floor(this.rot / 360),72,72,x,y,40,40);
+    if (this.rot < 1299) {
+      ctx.drawImage(img,Math.floor(this.rot % 360), Math.floor(this.rot / 360),72,72,x,y,40,40);
+    } else {
+      ctx.drawImage(explosion, (this.rot - 1300) , 0,192,192,x - 35,y - 35,120,120);
+      this.rot += 192;
+      if (this.rot >= 13588 ) {
+        this.pos = App.Asteroid.randomPos(App.Game.DIM_X, App.Game.DIM_Y);
+        this.rot = 72 * Math.floor(Math.random() * 18);
+      }
+    }
   }
 
   MovingObject.prototype.drawShip = function (ctx) {
@@ -88,6 +98,7 @@
     ctx.translate(this.pos[0], this.pos[1]);
     ctx.rotate(rot);
     ctx.drawImage(img, -40, -40, 80, 80);
+
     if (App.Game.SORRY === true) {
       ctx.drawImage(boost, -40, -45, 80, 80);
       App.Game.SORRY = false;

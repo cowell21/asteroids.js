@@ -142,11 +142,14 @@
 
     for (var i = 0; i < this.asteroids.length; i++){
 
+      if (this.asteroids[i].rot >= 1300) continue;
+
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
           score += 10;
           this.bullets[j].pos = [-100,-100]
-          this.asteroids[i].pos = App.Asteroid.randomPos(Game.DIM_X, Game.DIM_Y);
+          //this.asteroids[i].pos = App.Asteroid.randomPos(Game.DIM_X, Game.DIM_Y);
+          this.asteroids[i].rot = 1300;
           this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
@@ -187,8 +190,11 @@
       ship.vel = [0,0];
       $('.bgmusic')[0].volume = 1;
      });
+
     key('left', function(){ ship.rotate(Math.PI * -0.1) });
+
     key('right', function(){ ship.rotate(Math.PI * 0.1) });
+
     key('up', function(){
       Game.SORRY = true;
       ship.power();
