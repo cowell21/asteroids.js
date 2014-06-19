@@ -140,13 +140,6 @@
   Game.prototype.checkCollision = function () {
 
     for (var i = 0; i < this.asteroids.length; i++){
-      if (this.asteroids[i].isCollidedWith(this.ship)) {
-        $('.bgmusic')[0].volume = 0.25;
-        $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
-        $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
-        gameover = true;
-        this.asteroids = [];
-      }
 
       for (var j = 0; j < 30; j++) {
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
@@ -156,6 +149,14 @@
           this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
         }
+      }
+
+      if (this.asteroids[i].isCollidedWith(this.ship)) {
+        $('.bgmusic')[0].volume = 0.25;
+        $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
+        $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
+        gameover = true;
+        this.asteroids = [];
       }
 
     }

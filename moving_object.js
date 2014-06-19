@@ -67,19 +67,26 @@
   }
 
   MovingObject.prototype.drawShip = function (ctx) {
-    ctx.fillStyle = this.color;
-    ctx.beginPath();
+    // ctx.fillStyle = this.color;
+    // ctx.beginPath();
+    //
+    // ctx.arc(
+    //   this.pos[0],
+    //   this.pos[1],
+    //   this.rad,
+    //   (0.75) * Math.PI + rot,
+    //   (2.25) * Math.PI + rot,
+    //   false
+    // );
+    //
+    // ctx.fill();
+    var img = document.getElementById("ship");
 
-    ctx.arc(
-      this.pos[0],
-      this.pos[1],
-      this.rad,
-      (0.75) * Math.PI + rot,
-      (2.25) * Math.PI + rot,
-      false
-    );
-
-    ctx.fill();
+    ctx.save();
+    ctx.translate(this.pos[0], this.pos[1]);
+    ctx.rotate(rot);
+    ctx.drawImage(img, -40, -40, 80, 80);
+    ctx.restore();
   }
 
   MovingObject.prototype.isCollidedWith = function (OtherObject) {

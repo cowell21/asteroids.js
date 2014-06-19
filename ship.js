@@ -17,7 +17,7 @@ Function.prototype.inherits = function (superClass) {
   }
 
   Ship.inherits(MovingObject);
-  Ship.RADIUS = 10;
+  Ship.RADIUS = 14;
   Ship.COLOR = "#7CFC00";
   Ship.ROTATION = Math.PI; //standard rotation
 
