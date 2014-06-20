@@ -125,6 +125,7 @@
   };
 
   Game.prototype.step = function () {
+    this.bindKeyHandler()
     this.move();
 
     if (startSeq) {
@@ -138,6 +139,8 @@
     }
   };
 
+
+
   Game.prototype.checkCollision = function () {
 
     for (var i = 0; i < this.asteroids.length; i++){
@@ -148,7 +151,6 @@
         if ( this.asteroids[i].isCollidedWith(this.bullets[j]) ) {
           score += 10;
           this.bullets[j].pos = [-100,-100]
-          //this.asteroids[i].pos = App.Asteroid.randomPos(Game.DIM_X, Game.DIM_Y);
           this.asteroids[i].rot = 1300;
           this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
           $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
@@ -179,9 +181,9 @@
     var bullets = this.bullets;
     var that = this;
 
-    startSeq = true;
+    //startSeq = true;
 
-    key('enter', function(){
+    if (key.isPressed('enter')) {
       startSeq = false;
       gameover = false;
       score = 0;
@@ -189,18 +191,18 @@
       ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
       ship.vel = [0,0];
       $('.bgmusic')[0].volume = 1;
-     });
+     };
 
-    key('left', function(){ ship.rotate(Math.PI * -0.1) });
+    if (key.isPressed('left')) { ship.rotate(Math.PI * -0.1) };
 
-    key('right', function(){ ship.rotate(Math.PI * 0.1) });
+    if (key.isPressed('right')) { ship.rotate(Math.PI * 0.1) };
 
-    key('up', function(){
+    if (key.isPressed('up')) {
       Game.SORRY = true;
       ship.power();
       $('.boostnoise').html("<source src='media/boost.mp3' type='audio/mpeg' >" );
-     });
-    key('space', function(){
+     };
+    if (key.isPressed('space')) {
       $('.shootnoise').html("<source src='media/shot.mp3' type='audio/mpeg' >" );
       bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
       bullets[inTheHole].vel = [4 * Math.sin(rot) + ship.vel[0],
@@ -213,8 +215,8 @@
         inTheHole += 1;
       }
 
-    });
-  }
+    };
+  };
 
 
 })(this)

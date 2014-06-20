@@ -22,8 +22,8 @@ Function.prototype.inherits = function (superClass) {
   Ship.ROTATION = Math.PI; //standard rotation
 
   Ship.prototype.power = function () {
-    this.vel[0] += Math.sin(rot);
-    this.vel[1] -= Math.cos(rot);
+    this.vel[0] += Math.sin(rot) / 2;
+    this.vel[1] -= Math.cos(rot) / 2;
   }
 
   Ship.prototype.rotate = function (direction) {
