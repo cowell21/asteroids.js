@@ -165,10 +165,6 @@
         $('.gameovernoise')[0].currentTime = 0;
         $('.gameovernoise')[0].play();
 
-        for (var i = 0; i < 50; i++) {
-          this.bullets[i].pos = [-100, -100];
-        }
-
         gameover = true;
         this.asteroids = [];
       }
@@ -185,38 +181,38 @@
   };
 
   Game.prototype.bindKeyHandler = function () {
-    var ship = this.ship;
-    var bullets = this.bullets;
-    var that = this;
-
-    //startSeq = true;
 
     if (key.isPressed('enter')) {
+      for (var i = 0; i < 50; i++) {
+        this.bullets[i].pos = [-100, -100];
+      }
+
       startSeq = false;
       gameover = false;
       score = 0;
-      that.asteroids = that.addAsteroids(5);
-      ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
-      ship.vel = [0,0];
+
+      this.asteroids = this.addAsteroids(5);
+      this.ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
+      this.ship.vel = [0,0];
       $('.bgmusic')[0].volume = 1;
      };
 
-    if (key.isPressed('left')) { ship.rotate(Math.PI * -0.1) };
+    if (key.isPressed('left')) { this.ship.rotate(Math.PI * -0.1) };
 
-    if (key.isPressed('right')) { ship.rotate(Math.PI * 0.1) };
+    if (key.isPressed('right')) { this.ship.rotate(Math.PI * 0.1) };
 
     if (key.isPressed('up')) {
       Game.SORRY = true;
-      ship.power();
+      this.ship.power();
       $('.boostnoise')[0].currentTime = 0;
       $('.boostnoise')[0].play();
      };
     if (key.isPressed('space')) {
       $('.shootnoise')[0].currentTime = 0;
       $('.shootnoise')[0].play();
-      bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
-      bullets[inTheHole].vel = [4 * Math.sin(rot) + ship.vel[0],
-       -4 * Math.cos(rot) + ship.vel[1]];
+      this.bullets[inTheHole].pos = [this.ship.pos[0], this.ship.pos[1]];
+      this.bullets[inTheHole].vel = [4 * Math.sin(rot) + this.ship.vel[0],
+       -4 * Math.cos(rot) + this.ship.vel[1]];
 
       // preps the next bullet in the ship's cannon
       if ( inTheHole === 29 ) {
