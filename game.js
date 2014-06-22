@@ -181,48 +181,45 @@
   };
 
   Game.prototype.bindKeyHandler = function () {
-
-    if (key.isPressed('enter')) {
-      for (var i = 0; i < 50; i++) {
-        this.bullets[i].pos = [-100, -100];
-      }
-
-      startSeq = false;
-      gameover = false;
-      score = 0;
-
-      this.asteroids = this.addAsteroids(5);
-      this.ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
-      this.ship.vel = [0,0];
-      $('.bgmusic')[0].volume = 1;
-     };
-
+    if (key.isPressed('enter')) { this.pressedEnter(); };
     if (key.isPressed('left')) { this.ship.rotate(Math.PI * -0.1) };
-
     if (key.isPressed('right')) { this.ship.rotate(Math.PI * 0.1) };
-
-    if (key.isPressed('up')) {
-      Game.SORRY = true;
-      this.ship.power();
-      $('.boostnoise')[0].currentTime = 0;
-      $('.boostnoise')[0].play();
-     };
-    if (key.isPressed('space')) {
-      $('.shootnoise')[0].currentTime = 0;
-      $('.shootnoise')[0].play();
-      this.bullets[inTheHole].pos = [this.ship.pos[0], this.ship.pos[1]];
-      this.bullets[inTheHole].vel = [4 * Math.sin(rot) + this.ship.vel[0],
-       -4 * Math.cos(rot) + this.ship.vel[1]];
-
-      // preps the next bullet in the ship's cannon
-      if ( inTheHole === 29 ) {
-        inTheHole = 0;
-      } else {
-        inTheHole += 1;
-      }
-
-    };
+    if (key.isPressed('up')) { this.pressedUp(); };
+    if (key.isPressed('space')) { this.pressedSpace(); };
   };
 
+  Game.prototype.pressedEnter = function () {
+    for (var i = 0; i < 50; i++) {
+      this.bullets[i].pos = [-100, -100];
+    }
+
+    startSeq = false;
+    gameover = false;
+    score = 0;
+
+    this.asteroids = this.addAsteroids(5);
+    this.ship.pos = [(Game.DIM_X / 2), (Game.DIM_Y / 2)];
+    this.ship.vel = [0,0];
+    $('.bgmusic')[0].volume = 1;
+  };
+
+  Game.prototype.pressedSpace = function () {
+    $('.shootnoise')[0].currentTime = 0;
+    $('.shootnoise')[0].play();
+
+    this.bullets[inTheHole].pos = [this.ship.pos[0], this.ship.pos[1]];
+    this.bullets[inTheHole].vel = [4 * Math.sin(rot) + this.ship.vel[0],
+     -4 * Math.cos(rot) + this.ship.vel[1]];
+
+    inTheHole += 1;
+    if ( inTheHole === 30 ) { inTheHole = 0; }
+  };
+
+  Game.prototype.pressedUp = function () {
+    this.ship.power();
+    Game.SORRY = true; //needs to be changed
+    $('.boostnoise')[0].currentTime = 0;
+    $('.boostnoise')[0].play();
+  };
 
 })(this)
