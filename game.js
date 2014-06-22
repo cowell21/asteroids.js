@@ -164,6 +164,11 @@
         $('.boomnoise')[0].play();
         $('.gameovernoise')[0].currentTime = 0;
         $('.gameovernoise')[0].play();
+
+        for (var i = 0; i < 50; i++) {
+          this.bullets[i].pos = [-100, -100];
+        }
+
         gameover = true;
         this.asteroids = [];
       }
