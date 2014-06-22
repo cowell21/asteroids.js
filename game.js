@@ -153,14 +153,17 @@
           this.bullets[j].pos = [-100,-100]
           this.asteroids[i].rot = 1300;
           this.asteroids.push(App.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
-          $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
+          $('.boomnoise')[0].currentTime = 0;
+          $('.boomnoise')[0].play();
         }
       }
 
       if (this.asteroids[i].isCollidedWith(this.ship)) {
         $('.bgmusic')[0].volume = 0.25;
-        $('.boomnoise').html("<source src='media/boom.mp3' type='audio/mpeg' >" );
-        $('.gameovernoise').html("<source src='media/gameover.mp3' type='audio/mpeg' >" );
+        $('.boomnoise')[0].currentTime = 0;
+        $('.boomnoise')[0].play();
+        $('.gameovernoise')[0].currentTime = 0;
+        $('.gameovernoise')[0].play();
         gameover = true;
         this.asteroids = [];
       }
@@ -200,10 +203,12 @@
     if (key.isPressed('up')) {
       Game.SORRY = true;
       ship.power();
-      $('.boostnoise').html("<source src='media/boost.mp3' type='audio/mpeg' >" );
+      $('.boostnoise')[0].currentTime = 0;
+      $('.boostnoise')[0].play();
      };
     if (key.isPressed('space')) {
-      $('.shootnoise').html("<source src='media/shot.mp3' type='audio/mpeg' >" );
+      $('.shootnoise')[0].currentTime = 0;
+      $('.shootnoise')[0].play();
       bullets[inTheHole].pos = [ship.pos[0], ship.pos[1]];
       bullets[inTheHole].vel = [4 * Math.sin(rot) + ship.vel[0],
        -4 * Math.cos(rot) + ship.vel[1]];
