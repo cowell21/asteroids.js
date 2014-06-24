@@ -43,6 +43,29 @@
     return bullets;
   };
 
+  Game.prototype.start = function () {
+    game = this;
+
+    window.setInterval(function () {
+      game.step();
+    }, 30);
+  };
+
+  Game.prototype.step = function () {
+    this.bindKeyHandler()
+    this.move();
+
+    if (startSeq) {
+      this.startDraw();
+    } else {
+      this.draw();
+    }
+
+    if (gameover != true && startSeq != true) {
+      this.checkCollision();
+    }
+  };
+
   Game.prototype.draw = function () {
     this.ctx.fillStyle="black";
     this.ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
@@ -124,23 +147,6 @@
 
   };
 
-  Game.prototype.step = function () {
-    this.bindKeyHandler()
-    this.move();
-
-    if (startSeq) {
-      this.startDraw();
-    } else {
-      this.draw();
-    }
-
-    if (gameover != true && startSeq != true) {
-      this.checkCollision();
-    }
-  };
-
-
-
   Game.prototype.checkCollision = function () {
 
     for (var i = 0; i < this.asteroids.length; i++){
@@ -170,14 +176,6 @@
       }
 
     }
-  };
-
-  Game.prototype.start = function () {
-    game = this;
-
-    window.setInterval(function () {
-      game.step();
-    }, 30);
   };
 
   Game.prototype.bindKeyHandler = function () {
