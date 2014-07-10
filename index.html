@@ -65,7 +65,7 @@
 </body>
 
 <script>
-  var canvas = document.getElementsByTagName("canvas")[0];
+  var canvas = $('canvas')[0]
   var game = new App.Game(canvas.getContext("2d"));
   game.start();
 </script>
